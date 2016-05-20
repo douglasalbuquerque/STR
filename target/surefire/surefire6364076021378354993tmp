@@ -1,0 +1,8 @@
+#surefire
+#Wed May 18 09:32:31 GMT-03:00 2016
+maven.ext.class.path=C\:\\Program Files\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=C\:\\Users\\Douglas Albuquerque\\Documents\\NetBeansProjects\\Atividade_TR
+file.encoding=UTF-8
+localRepository=C\:\\Users\\Douglas Albuquerque\\.m2\\repository
+basedir=C\:\\Users\\Douglas Albuquerque\\Documents\\NetBeansProjects\\Atividade_TR
+test=teste.TestaTempoResposta\#testarTempoRespostaTrue
