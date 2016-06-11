@@ -5,6 +5,7 @@
  */
 package implementacao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,13 +14,21 @@ import java.util.List;
  */
 public class Escalonador {
 
-    List<Tarefa> tarefasOrdenadasPorDeadline = null;
+    ArrayList<Tarefa> tarefasOrdenadasPorDeadline = null;
+    private static Escalonador escalonador = null;
 
-    public Escalonador(List<Tarefa> tarefas){
+    public Escalonador(ArrayList<Tarefa> tarefas) {
         this.tarefasOrdenadasPorDeadline = tarefas;
         ordenarTarefasPorDeadline();
     }
-    
+
+    public static Escalonador getInstance(ArrayList<Tarefa> tarefas) {
+        if (escalonador == null) {
+            escalonador = new Escalonador(tarefas);
+        }
+        return escalonador;
+    }
+
     private void ordenarTarefasPorDeadline() {
         Tarefa tarefaAuxiliar;
         for (int i = this.tarefasOrdenadasPorDeadline.size() - 1; i >= 1; i--) {
@@ -46,11 +55,10 @@ public class Escalonador {
         }
     }
 
-       
-    public List<Tarefa> getTarefas() {
+    public ArrayList<Tarefa> getTarefas() {
         return tarefasOrdenadasPorDeadline;
     }
-    
+
     public Tarefa getTarefaMaisPrejudicada() {
         int indice = tarefasOrdenadasPorDeadline.size() - 1;
         return tarefasOrdenadasPorDeadline.get(indice);

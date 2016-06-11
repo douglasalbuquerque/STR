@@ -4,7 +4,6 @@ import implementacao.Escalonador;
 import implementacao.Tarefa;
 import implementacao.TempoDeResposta;
 import java.util.ArrayList;
-import java.util.List;
 import static org.junit.Assert.assertFalse;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +15,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class TestaTempoResposta {
 
-    List<Tarefa> tarefasTrue = null;
-    List<Tarefa> tarefasFalse = null;
-    List<Tarefa> tarefasOrdenadas = null;
+    ArrayList<Tarefa> tarefasTrue = null;
+    ArrayList<Tarefa> tarefasFalse = null;
+    ArrayList<Tarefa> tarefasOrdenadas = null;
     Tarefa tarefaMaisAtrapalhada = null;
 
 //    @Before
@@ -69,22 +68,22 @@ public class TestaTempoResposta {
     }
 
     private Tarefa montarObjetoTarefa3() {
-        Tarefa tarefa = new Tarefa(40, 100, 100);
+        Tarefa tarefa = new Tarefa(40, 80, 80);
         return tarefa;
     }
     
     private Tarefa montarObjetoTarefa4() {
-        Tarefa tarefa = new Tarefa(2, 6, 6);
+        Tarefa tarefa = new Tarefa(6.25, 25, 25);
         return tarefa;
     }
 
     private Tarefa montarObjetoTarefa5() {
-        Tarefa tarefa = new Tarefa(3, 15, 15);
+        Tarefa tarefa = new Tarefa(6.25, 50, 50);
         return tarefa;
     }
 
     private Tarefa montarObjetoTarefa6() {
-        Tarefa tarefa = new Tarefa(20, 40, 40);
+        Tarefa tarefa = new Tarefa(40, 68, 68);
         return tarefa;
     }
 }

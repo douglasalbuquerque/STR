@@ -14,49 +14,49 @@ import java.util.List;
 public class TempoDeResposta {
 
     Tarefa tarefaMaisAtrapalhada;
+    private static TempoDeResposta tempoResposta = null;
 
     public TempoDeResposta(Tarefa t) {
         this.tarefaMaisAtrapalhada = t;
     }
 
-    public boolean tempoResposta() {
-        double tempoRespostaAnterior = 0;
-        double tempoRespostaAtual = tarefaMaisAtrapalhada.getCarga();
-        double soma = 0;
-        boolean resultado = Boolean.FALSE;
-        int size = tarefaMaisAtrapalhada.getTarefasExecutadasAntes().size();
-        List<Tarefa> tarefas = tarefaMaisAtrapalhada.getTarefasExecutadasAntes();
-        double cargaMaxima = tarefaMaisAtrapalhada.getCarga();
-        Tarefa tarefaAnterior = null;
-        int index = 0;
-
-        soma += cargaMaxima;
-
-        while (index < tarefas.size()) {
-            //tempoRespostaAnterior = tempoRespostaAtual;
-
-            for (Tarefa tarefaAtual : tarefas) {
-                if (tarefaAtual.getTarefasExecutadasAntes().isEmpty()) {
-                } else {
-                    soma += cargaMaxima + (Math.ceil(soma / tarefaAnterior.getPeriodo()) * tarefaAnterior.getCarga()) + (Math.ceil(soma / tarefaAtual.getPeriodo()) * tarefaAtual.getCarga());
-                }
-                tarefaAnterior = tarefaAtual;
-
-                tempoRespostaAtual = tarefaMaisAtrapalhada.getCarga() + soma;
-
-                if (tempoRespostaAtual > tarefaMaisAtrapalhada.getPeriodo()) {
-                    System.err.println("Não Escalonavel.");
-                    resultado = Boolean.FALSE;
-                    break;
-                }
-                if (tempoRespostaAnterior == tempoRespostaAtual) {
-                    System.out.println("Escalonavel");
-                    resultado = Boolean.TRUE;
-                    break;
-                }
-            }
+    public static TempoDeResposta getInstance(Tarefa t) {
+        if (tempoResposta == null) {
+            tempoResposta = new TempoDeResposta(t);
         }
-        return resultado;
+        return tempoResposta;
     }
 
+    public boolean tempoResposta() {
+
+        double cargaMaxima = tarefaMaisAtrapalhada.getCarga();
+        double periodoMaximo = tarefaMaisAtrapalhada.getPeriodo();
+        double somaAtual = cargaMaxima;
+        double somaAnterior = 0;
+        double resultadoAtual;
+        int i = 0;
+        int tamanho = tarefaMaisAtrapalhada.getTarefasExecutadasAntes().size();
+            boolean resultadoFinal = Boolean.FALSE;
+
+        while (i <= tamanho) {
+            resultadoAtual = 0;
+            for (int j = 0; j < tamanho; j++) {
+                Tarefa tarefaAtual = tarefaMaisAtrapalhada.getTarefasExecutadasAntes().get(j);
+                resultadoAtual += Math.ceil(somaAtual / tarefaAtual.getPeriodo()) * tarefaAtual.getCarga();
+            }
+            somaAtual = cargaMaxima + resultadoAtual;
+
+            if (somaAtual == somaAnterior) {
+                resultadoFinal = Boolean.TRUE;
+                break;
+            }
+            if (somaAtual > periodoMaximo) {
+                resultadoFinal = Boolean.FALSE;
+                break;
+            }
+            somaAnterior = somaAtual;
+            i++;
+        }
+        return resultadoFinal;
+    }
 }

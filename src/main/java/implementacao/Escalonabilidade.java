@@ -14,19 +14,30 @@ import java.util.List;
 public class Escalonabilidade {
     
     private double somaDoUso = 0;
+    private static Escalonabilidade escalonabilidade = null;
+    
+    public static Escalonabilidade getInstance(){
+        if(escalonabilidade == null){
+            escalonabilidade = new Escalonabilidade();
+        }
+        return escalonabilidade;
+    }
     
     
     public boolean verificaUsoDaCpu(List<Tarefa> tarefas){
         for(Tarefa t : tarefas){
             this.somaDoUso += t.getUtilizacaoCPU();
         }
-        if((somaDoUso * 100) > 100){
-            return false;
-        }else{
-            return true;
+        return (somaDoUso * 100) <= 100;
+    }
+    
+    public double verificaUsoDaCpuDouble(List<Tarefa> tarefas){
+        this.somaDoUso = 0;
+        for(Tarefa t : tarefas){
+            this.somaDoUso += t.getUtilizacaoCPU();
         }
-        
-    } 
+        return somaDoUso;
+    }
     
     
     
